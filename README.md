@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+<h1 align="center">Recurring Task Board</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+![Issues](https://img.shields.io/github/issues/MllGll/recurring-task-board)
+![Pull Requests](https://img.shields.io/github/issues-pr/MllGll/recurring-task-board)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+<div align="center">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Preview](./public/demo-screen.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+</div>
 
-### `npm test`
+## Table of Contents
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Description](#description)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Getting started](#getting-started)
+- [Contributing](#contributing)
+- [Support](#support)
+- [Authors](#authors)
+- [License](#license)
 
-### `npm run build`
+## Description
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Single-page React app for recurring tasks grouped by **Today**, **Week**, **Month**, and **Year**. Each horizon acts as its own board: you add items for the current period, mark them done, optionally **fix** tasks so they survive calendar rollovers, and rely on **localStorage** so lists and theme survive reloads. It targets anyone who wants a lightweight, offline-first checklist that resets with the calendar unless a task is pinned.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Flip between **Today**, **Week**, **Month**, and **Year** so you can plan at the horizon that matches how you think about work.
+- Add tasks to whichever board you are viewing, and delete anything you no longer need.
+- Mark tasks complete when you finish them, or unmark them if you need to revisit the work.
+- Pin tasks you want to keep across calendar changes; when a new day, week, month, or year starts, pinned items stay on the list but show as not done again, while unpinned tasks for that horizon are removed.
+- See buttons and headings in **English** or **Portuguese** based on your browser language (other languages fall back to English).
+- Switch between **light** and **dark** screen styles to match your preference or lighting.
 
-### `npm run eject`
+## Tech stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Frontend**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- React 17, `react-dom`, Create React App (`react-scripts` 5)
+- `styled-components`, `@mui/material` (`createTheme` for palette), Google Fonts (Roboto Condensed) and Material Icons (loaded from Google)
+- `i18next`, `react-i18next`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Tooling / infrastructure**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- npm (`package-lock.json`)
+- `gh-pages` for static deploy to GitHub Pages
+- ESLint config extending `react-app` / Jest (CRA defaults)
+- TypeScript listed as a dev dependency (CRA override); application source is JavaScript/JSX
 
-## Learn More
+## Getting started
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+```
 
-### Code Splitting
+#### Running the project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm start
+```
 
-### Analyzing the Bundle Size
+Serves the development build (default CRA: [http://localhost:3000](http://localhost:3000)).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contributing
 
-### Making a Progressive Web App
+1. Fork the repository and create a branch for your change.
+2. Install dependencies and verify the app with `npm start` / `npm run build` as appropriate.
+3. Open a pull request describing the change.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Support
 
-### Advanced Configuration
+- Open an issue on [GitHub Issues](https://github.com/MllGll/recurring-task-board/issues) for bugs or feature requests.
+- Marcello Gallante — [marcellogallante@gmail.com](mailto:marcellogallante@gmail.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Authors
 
-### Deployment
+- **Marcello Gallante** — [GitHub](https://github.com/MllGll)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the [MIT License](./LICENSE).
