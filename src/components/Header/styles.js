@@ -12,6 +12,7 @@ const Container = styled.div`
 
   h1 {
     color: ${({ theme }) => theme.color.secondary.main};
+    font-weight: 500;
     cursor: default;
     margin: 0;
   }

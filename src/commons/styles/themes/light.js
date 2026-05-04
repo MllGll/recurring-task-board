@@ -7,8 +7,9 @@ const theme = createTheme({
     background: "#f8f9fa",
     inputField: "#ffffff",
     primary: {
-      main: "#e9ecef",
-      dark: "#ced4da",
+      main: "#b6bcc2",
+      light: "#e1e3e6",
+      dark: "#76818c",
     },
     secondary: {
       main: "#495057",

@@ -7,12 +7,12 @@ const Container = styled.div`
   width: 100%;
 
   button {
-    background-color: ${({ theme }) => theme.color.primary.main};
+    background-color: ${({ theme }) => theme.color.primary.light};
     color: ${({ theme }) => theme.color.primary.dark};
     border-radius: 10px;
     width: 40px;
     height: 40px;
-    border: 1px solid ${({ theme }) => theme.color.primary.dark};
+    border: 1px solid ${({ theme }) => theme.color.primary.main};
     cursor: pointer;
     display: table-cell;
     i {
@@ -31,11 +31,11 @@ const Container = styled.div`
       overflow: auto;
       border-radius: 10px;
       font-size: 20px;
-      background-color: ${({ theme }) => theme.color.primary.main};
-      color: ${({ theme }) => theme.color.secondary.main};
+      background-color: ${({ theme }) => theme.color.primary.light};
+      color: ${({ theme }) => theme.color.secondary.dark};
       cursor: default;
       padding: 7px 10px 0 10px;
-      border: 1px solid ${({ theme }) => theme.color.primary.dark};
+      border: 1px solid ${({ theme }) => theme.color.primary.main};
 
       ::-webkit-scrollbar {
         height: 0;
@@ -58,11 +58,6 @@ const Container = styled.div`
   .fixar {
     :hover {
       color: ${({ theme }) => theme.color.common.orange};
-    }
-    :disabled {
-      :hover {
-        color: ${({ theme }) => theme.color.primary.dark};
-      }
     }
   }
   .fixar.fixed {

@@ -7,12 +7,13 @@ const theme = createTheme({
     background: "#212529",
     inputField: "#212529",
     primary: {
-      main: "#343a40",
-      dark: "#495057",
+      main: "#495057",
+      light: "#343a40",
+      dark: "#6d7278",
     },
     secondary: {
-      main: "#e9ecef",
-      dark: "#ced4da",
+      main: "#b6bcc2",
+      dark: "#e1e3e6",
     },
     common: {
       white: "#FFFFFF",

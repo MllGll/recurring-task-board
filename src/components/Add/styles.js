@@ -17,7 +17,7 @@ const Container = styled.div`
 
     ::placeholder {
       font-style: italic;
-      color: ${({ theme }) => theme.color.primary.main};
+      color: ${({ theme }) => theme.color.primary.dark};
     }
   }
 

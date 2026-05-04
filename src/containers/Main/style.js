@@ -7,7 +7,7 @@ const Container = styled.div`
 
   footer {
     cursor: default;
-    color: ${({ theme }) => theme.color.primary.dark};
+    color: ${({ theme }) => theme.color.secondary.main};
     bottom: 0;
     display: flex;
     justify-content: center;

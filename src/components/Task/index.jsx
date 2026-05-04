@@ -45,7 +45,6 @@ const Task = (props) => {
           <span className={checkedContainerClass}>{title}</span>
           <div className="but">
             <button
-              disabled
               className={fixedContainerClass}
               onClick={fixedToggle}
             >
