@@ -16,22 +16,22 @@ function startOfLocalWeek(date) {
  * Identificador estável do intervalo atual para cada quadro.
  * Deve coincidir com os rótulos em `periods` (Hoje, Semana, Mês, Ano).
  */
-export function getCurrentBucket(period) {
+export function getCurrentBucket(period, t) {
   const now = new Date();
   switch (period) {
-    case "Hoje":
+    case t("today"):
       return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
         now.getDate()
       )}`;
-    case "Semana": {
+    case t("week"): {
       const sunday = startOfLocalWeek(now);
       return `${sunday.getFullYear()}-${pad(sunday.getMonth() + 1)}-${pad(
         sunday.getDate()
       )}`;
     }
-    case "Mês":
+    case t("month"):
       return `${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
-    case "Ano":
+    case t("year"):
       return String(now.getFullYear());
     default:
       return "";
@@ -56,13 +56,13 @@ export function rolloverTasksForPeriod(tasks, period) {
  * @param {string[]} periods
  * @returns {{ nextTasks: Array, nextBuckets: Record<string, string>, changed: boolean }}
  */
-export function computeIntervalRollover(tasks, buckets, periods) {
+export function computeIntervalRollover(tasks, buckets, periods, t) {
   const nextBuckets = { ...buckets };
   let nextTasks = tasks;
   let changed = false;
 
   for (const period of periods) {
-    const current = getCurrentBucket(period);
+    const current = getCurrentBucket(period, t);
     if (buckets[period] === undefined) {
       if (nextBuckets[period] !== current) {
         nextBuckets[period] = current;

@@ -10,8 +10,16 @@ import GlobalStyle from "../../commons/styles/global";
 import usePersistedState from "../../commons/hooks/usePersistedState";
 import { computeIntervalRollover } from "./intervalBuckets";
 import { addTask, removeTask } from "./utils";
+import { useTranslation } from "react-i18next";
 
 const Main = () => {
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    i18n.changeLanguage(navigator.language);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   //tasks
   const [tasks, setTasks] = usePersistedState(
     "@recurring-task-board/tasks",
@@ -26,7 +34,7 @@ const Main = () => {
   const id = Math.round(Math.random() * 99999999);
 
   //periods
-  const periods = ["Hoje", "Semana", "Mês", "Ano"];
+  const periods = [t("today"), t("week"), t("month"), t("year")];
   const [currentIndex, setCurrentIndex] = useState(0);
   const period = periods[currentIndex];
 
@@ -40,16 +48,17 @@ const Main = () => {
   rolloverSnapshot.current = { tasks, periodBuckets };
 
   const applyRolloverFromSnapshot = () => {
-    const { tasks: t, periodBuckets: b } = rolloverSnapshot.current;
+    const { tasks: tasksSnapshot  , periodBuckets: periodBucketsSnapshot } = rolloverSnapshot.current;
     const { nextTasks, nextBuckets, changed } = computeIntervalRollover(
-      t,
-      b,
-      periods
+      tasksSnapshot,
+      periodBucketsSnapshot,
+      periods,
+      t
     );
     if (!changed) return;
-    const tasksChanged = JSON.stringify(nextTasks) !== JSON.stringify(t);
+    const tasksChanged = JSON.stringify(nextTasks) !== JSON.stringify(tasksSnapshot);
     const bucketsChanged =
-      JSON.stringify(nextBuckets) !== JSON.stringify(b);
+      JSON.stringify(nextBuckets) !== JSON.stringify(periodBucketsSnapshot);
     if (tasksChanged) setTasks(nextTasks);
     if (bucketsChanged) setPeriodBuckets(nextBuckets);
   };
@@ -100,6 +109,7 @@ const Main = () => {
           }
           inputText={inputText}
           setInputText={setInputText}
+          t={t}
         />
         <div className="board">
           {tasks.map((task, index) => {
@@ -113,6 +123,7 @@ const Main = () => {
                     setTasks={setTasks}
                     isChecked={task.checked}
                     isFixed={task.fixed}
+                    t={t}
                   />
                 )
               );
@@ -123,7 +134,7 @@ const Main = () => {
             <i class="material-icons">lightbulb</i>
           </button>
           <p>
-            Desenvolvido por <b>Marcello Gallante</b>
+            {t("developedBy")} <b>Marcello Gallante</b>
           </p>
         </footer>
       </Container>

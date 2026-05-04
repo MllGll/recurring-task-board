@@ -2,13 +2,13 @@ import React from "react";
 import { Container } from "./styles.js";
 
 const Add = (props) => {
-  const { onSave, inputText, setInputText } = props;
+  const { onSave, inputText, setInputText, t } = props;
 
   return (
     <>
       <Container>
         <input
-          placeholder="Nova Atividade..."
+          placeholder={t("newTask")}
           maxLength={30}
           value={inputText}
           onKeyPress={(e) => {

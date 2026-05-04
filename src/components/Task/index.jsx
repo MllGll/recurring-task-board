@@ -3,7 +3,7 @@ import Checkbox from "../../templates/Checkbox/index.jsx";
 import Container from "./style.js";
 
 const Task = (props) => {
-  const { title, onRemove, setTasks, index, isChecked, isFixed } = props;
+  const { title, onRemove, setTasks, index, isChecked, isFixed, t } = props;
   const [checked, setChecked] = useState(isChecked);
   const [fixed, setFixed] = useState(isFixed);
 
@@ -48,6 +48,7 @@ const Task = (props) => {
         <Checkbox
           containerClass={checkedContainerClass}
           toggle={checkedToggle}
+          title={t("check")}
         />
         <div className="resto">
           <span className={checkedContainerClass}>{title}</span>
@@ -55,10 +56,11 @@ const Task = (props) => {
             <button
               className={fixedContainerClass}
               onClick={fixedToggle}
+              title={t("schedule")}
             >
               <i className="material-icons">schedule</i>
             </button>
-            <button className="excluir" onClick={onRemove}>
+            <button className="excluir" onClick={onRemove} title={t("delete")}>
               <i className="material-icons">delete</i>
             </button>
           </div>
