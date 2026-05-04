@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Add from "../../components/Add";
 import Header from "../../components/Header";
 import Task from "../../components/Task";
@@ -8,6 +8,7 @@ import light from "../../commons/styles/themes/light";
 import dark from "../../commons/styles/themes/dark";
 import GlobalStyle from "../../commons/styles/global";
 import usePersistedState from "../../commons/hooks/usePersistedState";
+import { computeIntervalRollover } from "./intervalBuckets";
 import { addTask, removeTask } from "./utils";
 
 const Main = () => {
@@ -15,6 +16,11 @@ const Main = () => {
   const [tasks, setTasks] = usePersistedState(
     "@recurring-task-board/tasks",
     []
+  );
+  /** Último intervalo processado por quadro (virada = limpar não fixadas / resetar checks). */
+  const [periodBuckets, setPeriodBuckets] = usePersistedState(
+    "@recurring-task-board/period-buckets",
+    {}
   );
   const [inputText, setInputText] = useState("");
   const id = Math.round(Math.random() * 99999999);
@@ -29,6 +35,45 @@ const Main = () => {
   const toggleTheme = () => {
     setTheme(theme.title === "light" ? dark : light);
   };
+
+  const rolloverSnapshot = useRef({ tasks, periodBuckets });
+  rolloverSnapshot.current = { tasks, periodBuckets };
+
+  const applyRolloverFromSnapshot = () => {
+    const { tasks: t, periodBuckets: b } = rolloverSnapshot.current;
+    const { nextTasks, nextBuckets, changed } = computeIntervalRollover(
+      t,
+      b,
+      periods
+    );
+    if (!changed) return;
+    const tasksChanged = JSON.stringify(nextTasks) !== JSON.stringify(t);
+    const bucketsChanged =
+      JSON.stringify(nextBuckets) !== JSON.stringify(b);
+    if (tasksChanged) setTasks(nextTasks);
+    if (bucketsChanged) setPeriodBuckets(nextBuckets);
+  };
+
+  useEffect(() => {
+    applyRolloverFromSnapshot();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- rodar uma vez na montagem com estado já hidratado do localStorage
+  }, []);
+
+  useEffect(() => {
+    const onFocus = () => applyRolloverFromSnapshot();
+    const onVisible = () => {
+      if (document.visibilityState === "visible") applyRolloverFromSnapshot();
+    };
+    const intervalId = window.setInterval(applyRolloverFromSnapshot, 60_000);
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.clearInterval(intervalId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,8 +102,7 @@ const Main = () => {
           setInputText={setInputText}
         />
         <div className="board">
-          {tasks !== [] &&
-            tasks.map((task, index) => {
+          {tasks.map((task, index) => {
               return (
                 period === task.period && (
                   <Task

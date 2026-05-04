@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "../../templates/Checkbox/index.jsx";
 import Container from "./style.js";
 
@@ -6,6 +6,14 @@ const Task = (props) => {
   const { title, onRemove, setTasks, index, isChecked, isFixed } = props;
   const [checked, setChecked] = useState(isChecked);
   const [fixed, setFixed] = useState(isFixed);
+
+  useEffect(() => {
+    setChecked(isChecked);
+  }, [isChecked]);
+
+  useEffect(() => {
+    setFixed(isFixed);
+  }, [isFixed]);
 
   const checkedToggle = () => {
     setTasks((init) => {
@@ -48,10 +56,10 @@ const Task = (props) => {
               className={fixedContainerClass}
               onClick={fixedToggle}
             >
-              <i class="material-icons">schedule</i>
+              <i className="material-icons">schedule</i>
             </button>
             <button className="excluir" onClick={onRemove}>
-              <i class="material-icons">delete</i>
+              <i className="material-icons">delete</i>
             </button>
           </div>
         </div>
