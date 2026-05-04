@@ -13,7 +13,7 @@ import { addTask, removeTask } from "./utils";
 const Main = () => {
   //tasks
   const [tasks, setTasks] = usePersistedState(
-    "@quadro-de-atividades/tasks",
+    "@recurring-task-board/tasks",
     []
   );
   const [inputText, setInputText] = useState("");
