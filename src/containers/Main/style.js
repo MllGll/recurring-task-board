@@ -11,6 +11,10 @@ const Container = styled.div`
     bottom: 0;
     display: flex;
     justify-content: center;
+    a {
+      text-decoration: none;
+      color: ${({ theme }) => theme.color.secondary.main};
+    }
 
     button {
       background-color: transparent;

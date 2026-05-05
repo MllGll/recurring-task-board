@@ -7,6 +7,7 @@ i18n.use(initReactI18next).init({
     resources: {
         en: {
             translation: {
+                "title": "Recurring Task Board",
                 "developedBy": "Developed by",
                 "newTask": "New Task...",
                 "delete": "Delete",
@@ -20,6 +21,7 @@ i18n.use(initReactI18next).init({
         },
         pt: {
             translation: {
+                "title": "Quadro de Atividades",
                 "developedBy": "Desenvolvido por",
                 "newTask": "Nova Atividade...",
                 "delete": "Excluir",

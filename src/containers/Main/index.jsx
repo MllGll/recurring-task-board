@@ -11,6 +11,7 @@ import usePersistedState from "../../commons/hooks/usePersistedState";
 import { computeIntervalRollover } from "./intervalBuckets";
 import { addTask, removeTask } from "./utils";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const Main = () => {
   const { t, i18n } = useTranslation();
@@ -86,6 +87,9 @@ const Main = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Helmet>
+        <title>{t('title')}</title>
+      </Helmet>
       <GlobalStyle />
       <Container>
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
@@ -134,7 +138,7 @@ const Main = () => {
             <i class="material-icons">lightbulb</i>
           </button>
           <p>
-            {t("developedBy")} <b>Marcello Gallante</b>
+            {t("developedBy")} <b><a href="https://github.com/MllGll" target="_blank" rel="noopener noreferrer">Marcello Gallante</a></b>
           </p>
         </footer>
       </Container>
